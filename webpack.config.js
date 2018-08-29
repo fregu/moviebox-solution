@@ -13,7 +13,26 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('postcss-import')({ skipDuplicates: true }),
+                require('postcss-preset-env')({
+                  features: {
+                    'nesting-rules': true,
+                    'custom-media-queries': true
+                  }
+                })
+              ],
+              sourceMap: true,
+              ident: 'postcss'
+            }
+          }
+        ]
       },
       {
         test: /\.(woff|woff2|(o|t)tf|eot)$/i,
