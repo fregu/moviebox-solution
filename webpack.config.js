@@ -20,13 +20,8 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: [
-                require('postcss-import')({ skipDuplicates: true }),
-                require('postcss-preset-env')({
-                  features: {
-                    'nesting-rules': true,
-                    'custom-media-queries': true
-                  }
-                })
+                require('postcss-import')(),
+                require('postcss-preset-env')()
               ],
               sourceMap: true,
               ident: 'postcss'
@@ -58,7 +53,7 @@ module.exports = {
         test: /\.svg$/i,
         use: [
           {
-            loader: require.resolve('svg-inline-loader'),
+            loader: 'svg-inline-loader',
             options: {
               removeTags: true,
               removeSVGTagAttrs: true,
