@@ -1,0 +1,21 @@
+@import '../../base/_variables.css';
+
+.FormInput {
+}
+.FormInput-input {
+  font: inherit;
+  border: 1px solid var(--color-gray);
+  height: 2.5em;
+  display: block;
+  padding: 0.5em 1em;
+  width: 300px;
+  appearance: none;
+}
+
+.FormInput--fill .FormInput-input {
+  width: 100%;
+}
+
+.FormInput--large .FormInput-input {
+  font-size: 1.5em;
+}

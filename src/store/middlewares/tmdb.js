@@ -1,21 +1,27 @@
 import TMDB from 'helpers/tmdb-fetch'
 import {
   GET_MOVIE,
+  SET_MOVIE,
   GET_SHOW,
+  SET_SHOW,
   SEARCH,
   GET_POPULAR_MOVIES,
   GET_IN_CINEMA,
   GET_POPULAR_TV,
   GET_ON_AIR_TV,
+  GET_VIDEOS,
   setMovie,
   setShow,
   setSearchResults,
-  setCategory
+  setCategory,
+  getVideos,
+  setVideos
 } from 'store/actions'
 const API_KEY = '72e8013728917209a38a06e945fb6a2f'
 const api = new TMDB(API_KEY)
 
 function formatResult(item) {
+  if (!item) return
   const type = item.media_type || (item.first_air_date ? 'tv' : 'movie')
   return {
     ...item,
@@ -28,7 +34,7 @@ function formatResult(item) {
         `https://image.tmdb.org/t/p/w300${item.backdrop_path}`,
       large:
         item.backdrop_path &&
-        `https://image.tmdb.org/t/p/w500${item.backdrop_path}`
+        `https://image.tmdb.org/t/p/w1280${item.backdrop_path}`
     },
     poster_path: {
       small:
@@ -38,6 +44,15 @@ function formatResult(item) {
         item.poster_path && `https://image.tmdb.org/t/p/w500${item.poster_path}`
     }
   }
+}
+function formatVideo(item) {
+  return (
+    item && {
+      ...item,
+      url: `https://www.youtube.com/watch?v=${item.key}`,
+      embed: `https://www.youtube.com/embed/${item.key}`
+    }
+  )
 }
 export const tmdb = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -53,10 +68,22 @@ export const tmdb = ({ dispatch, getState }) => next => action => {
         .then(formatResult)
         .then(data => dispatch(setShow(data)))
       break
+    case SET_MOVIE.type:
+      dispatch(getVideos(action.data.id, 'movie'))
+      break
+    case SET_SHOW.type:
+      dispatch(getVideos(action.data.id, 'tv'))
+      break
+    case GET_VIDEOS.type:
+      api
+        .get(`/${action.media}/${action.id}/videos`)
+        .then(data => data.results.map(formatVideo))
+        .then(data => dispatch(setVideos(action.id, data)))
+      break
     case SEARCH.type:
-      if (action.query.length) {
+      if (action.query) {
         api
-          .get(`/search/movie`, {
+          .get(`/search/multi`, {
             language: 'sv_SE',
             include_adult: false,
             query: action.query

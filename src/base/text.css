@@ -1,0 +1,13 @@
+@import './_variables.css';
+
+html,
+.text {
+  font-family: arial;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-small {
+  font-size: 0.85em;
+}

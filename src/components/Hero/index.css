@@ -1,0 +1,46 @@
+@import '../../base/_variables';
+
+:root {
+  --hero-padding: 2vh;
+}
+.Hero {
+  position: relative;
+  background: var(--color-black);
+  min-height: 30vh;
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.Hero-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  object-position: center;
+  object-fit: cover;
+  background-size: cover;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.Hero-backgroundVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  object-fit: contain;
+}
+.Hero-wrapper {
+  position: absolute;
+  right: var(--hero-padding);
+  bottom: var(--hero-padding);
+  left: var(--hero-padding);
+  max-height: 100%;
+}
+
+@media (--min-medium) {
+  .Hero-wrapper {
+    min-height: 300px;
+  }
+}

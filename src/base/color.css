@@ -1,0 +1,15 @@
+@import './_variables.css';
+
+.color-red {
+  color: var(--color-red);
+}
+.color-blue {
+  color: var(--color-blue);
+}
+.color-white {
+  color: var(--color-white);
+}
+.color-black,
+.color-text {
+  color: var(--color-black);
+}

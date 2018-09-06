@@ -1,0 +1,18 @@
+@import './_variables.css';
+
+.layout-container {
+  max-width: var(--layout-maxwidth);
+  margin-left: auto;
+  margin-right: auto;
+}
+.layout-gutter {
+  padding-left: var(--layout-gutter);
+  padding-right: var(--layout-gutter);
+}
+.layout-fullWidth {
+  position: relative;
+  left: 50%;
+  width: 100%;
+  width: 100vw;
+  transform: translateX(-50%);
+}

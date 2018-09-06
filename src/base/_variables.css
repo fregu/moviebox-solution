@@ -1,0 +1,21 @@
+:root {
+  @custom-media --min-small (min-width: 480px);
+  @custom-media --min-medium (min-width: 780px);
+  @custom-media --min-large (min-width: 1050px);
+  @custom-media --min-xlarge (min-width: 1500px);
+  @custom-media --max-small (max-width: 479px);
+  @custom-media --max-medium (max-width: 779px);
+  @custom-media --max-large (max-width: 1049px);
+  @custom-media --max-xlarge (min-width: 1499px);
+
+  --color-black: #121212;
+  --color-white: #fff;
+  --color-red: #c00;
+  --color-gray: #ccc;
+  --color-blue: #00c;
+
+  --layout-maxwidth: 1024px;
+  --layout-gutter: 2rem;
+
+  --base-font-size: 16px;
+}

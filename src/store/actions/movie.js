@@ -9,11 +9,16 @@ export const GET_POPULAR_TV = { type: 'GET_POPULAR_TV' }
 export const GET_ON_AIR_TV = { type: 'GET_ON_AIR_TV' }
 
 export const SET_CATEGORY = { type: 'SET_CATEGORY' }
+export const GET_VIDEOS = { type: 'GET_VIDEOS' }
+export const SET_VIDEOS = { type: 'SET_VIDEOS' }
 
 export const getMovie = id => ({ ...GET_MOVIE, id })
 export const setMovie = data => ({ ...SET_MOVIE, data })
 export const getShow = id => ({ ...GET_SHOW, id })
 export const setShow = data => ({ ...SET_SHOW, data })
+
+export const getVideos = (id, media) => ({ ...GET_VIDEOS, id, media })
+export const setVideos = (id, data) => ({ ...SET_VIDEOS, id, data })
 
 export const getCategory = category => {
   switch (category) {

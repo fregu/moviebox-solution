@@ -1,0 +1,6 @@
+@import './_variables.css';
+
+.hidden-text {
+  position: absolute;
+  left: -999em;
+}

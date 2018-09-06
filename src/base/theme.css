@@ -1,0 +1,14 @@
+@import './_variables.css';
+
+.theme-black {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+.theme-blue {
+  background-color: var(--color-blue);
+  color: var(--color-black);
+}
+.theme-red {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}

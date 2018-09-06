@@ -1,0 +1,14 @@
+.View {
+  max-width: var(--page-width);
+  margin: auto;
+}
+
+.View--fill {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.View--noScroll {
+  overflow: hidden;
+}

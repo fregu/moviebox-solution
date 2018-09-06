@@ -1,4 +1,10 @@
-import { GET_MOVIE, SET_MOVIE, GET_SHOW, SET_SHOW } from 'store/actions'
+import {
+  GET_MOVIE,
+  SET_MOVIE,
+  GET_SHOW,
+  SET_SHOW,
+  SET_VIDEOS
+} from 'store/actions'
 
 export const activeMovie = (state = {}, action) => {
   switch (action.type) {
@@ -7,7 +13,11 @@ export const activeMovie = (state = {}, action) => {
       return false
     case SET_MOVIE.type:
     case SET_SHOW.type:
-      return action.data
+      return action.data || state
+    case SET_VIDEOS.type:
+      return (
+        (state.id === action.id && { ...state, videos: action.data }) || state
+      )
     default:
       return state
   }

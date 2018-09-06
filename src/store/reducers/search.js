@@ -5,9 +5,9 @@ export const search = (state = {}, action) => {
     case SEARCH.type:
       return {
         ...state,
-        query: action.query,
-        isLoading: true,
-        ...(action.query.length === 0 ? { results: [] } : {})
+        query: action.query || '',
+        isLoading: action.query && true,
+        ...(!action.query ? { results: [] } : {})
       }
 
     case SET_SEARCH_RESULT.type:

@@ -1,0 +1,8 @@
+@import '../../base';
+
+.Button {
+  border: none;
+  font: inherit;
+  background: var(--color-gray);
+  border-radius: 3px;
+}

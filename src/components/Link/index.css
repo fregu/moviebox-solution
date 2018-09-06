@@ -1,0 +1,9 @@
+@import '../../base/_variables.css';
+
+.Link {
+  color: var(--color-blue);
+}
+.Link--discreet {
+  text-decoration: none;
+  color: inherit;
+}
