@@ -67,6 +67,10 @@ export default connect(
   () => {},
   dispatch => ({
     setActive: (id, type) =>
-      dispatch(type === 'tv' ? getShow(id) : getMovie(id))
+      dispatch(
+        type === 'tv'
+          ? getShow(id, { videos: true })
+          : getMovie(id, { videos: true })
+      )
   })
 )(MovieCard)

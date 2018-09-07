@@ -10,12 +10,15 @@ import {
   GET_POPULAR_TV,
   GET_ON_AIR_TV,
   GET_VIDEOS,
+  GET_CREDITS,
   setMovie,
   setShow,
   setSearchResults,
   setCategory,
   getVideos,
-  setVideos
+  setVideos,
+  setCredits,
+  getCredits
 } from 'store/actions'
 const API_KEY = '72e8013728917209a38a06e945fb6a2f'
 const api = new TMDB(API_KEY)
@@ -54,31 +57,56 @@ function formatVideo(item) {
     }
   )
 }
+function formatCredit(item) {
+  return (
+    item && {
+      ...item,
+      profile_path: `https://image.tmdb.org/t/p/w300${item.profile_path}`
+    }
+  )
+}
 export const tmdb = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case GET_MOVIE.type:
       api
         .get(`/movie/${action.id}`, { language: 'sv_SE' })
         .then(formatResult)
-        .then(data => dispatch(setMovie(data)))
+        .then(data => dispatch(setMovie(data, action.options)))
       break
     case GET_SHOW.type:
       api
         .get(`/tv/${action.id}`, { language: 'sv_SE' })
         .then(formatResult)
-        .then(data => dispatch(setShow(data)))
+        .then(data => dispatch(setShow(data, action.options)))
       break
     case SET_MOVIE.type:
-      dispatch(getVideos(action.data.id, 'movie'))
+      if (action.options.videos) {
+        dispatch(getVideos(action.data.id, 'movie'))
+      }
+      if (action.options.credits) {
+        dispatch(getCredits(action.data.id, 'movie'))
+      }
       break
     case SET_SHOW.type:
-      dispatch(getVideos(action.data.id, 'tv'))
+      if (action.options.videos) {
+        dispatch(getVideos(action.data.id, 'tv'))
+      }
+      if (action.options.credits) {
+        dispatch(getCredits(action.data.id, 'tv'))
+      }
+
       break
     case GET_VIDEOS.type:
       api
         .get(`/${action.media}/${action.id}/videos`)
         .then(data => data.results.map(formatVideo))
         .then(data => dispatch(setVideos(action.id, data)))
+      break
+    case GET_CREDITS.type:
+      api
+        .get(`/${action.media}/${action.id}/credits`)
+        .then(data => data.cast.map(formatCredit))
+        .then(data => dispatch(setCredits(action.id, data)))
       break
     case SEARCH.type:
       if (action.query) {

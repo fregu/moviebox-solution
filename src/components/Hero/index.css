@@ -1,7 +1,7 @@
 @import '../../base/_variables';
 
 :root {
-  --hero-padding: 2vh;
+  --hero-padding: 4vh;
 }
 .Hero {
   position: relative;
@@ -40,7 +40,7 @@
 }
 
 @media (--min-medium) {
-  .Hero-wrapper {
+  .Hero {
     min-height: 300px;
   }
 }

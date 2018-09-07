@@ -40,11 +40,10 @@ export default function Figure({
         })}
       >
         {src ? <img className="Figure-image" src={src} /> : null}
-        {children}
       </div>
-
+      {children}
       {text ? (
-        <figcaption className="Figure-figcaption">{children}</figcaption>
+        <figcaption className="Figure-figcaption">{text}</figcaption>
       ) : null}
     </div>
   )

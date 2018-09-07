@@ -43,7 +43,7 @@ class ActionHero extends Component<Props> {
                   video:
                     withVideo && videos.length
                       ? videos?.[0]?.embed +
-                        '?autoplay=1&mute=1&controls=1&loop=1&disablekb=1&color=black&iv_load_policy=0'
+                        '?autoplay=1&mute=1&controls=1&loop=1&disablekb=1&color=black&iv_load_policy=0&showinfo=0&modestbranding=1&autohide=1'
                       : ''
                 }
               : background

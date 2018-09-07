@@ -26,9 +26,11 @@ export default class Link extends Component<Props> {
       domRef,
       ...rest
     } = this.props
+    const TagName = to.match(/^http/) ? 'a' : RouterLink
     return (
-      <RouterLink
+      <TagName
         to={to}
+        href={to}
         className={classNames(
           'Link',
           className,
@@ -38,7 +40,7 @@ export default class Link extends Component<Props> {
         {...rest}
       >
         {text || children}
-      </RouterLink>
+      </TagName>
     )
   }
 }

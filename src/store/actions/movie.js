@@ -12,13 +12,23 @@ export const SET_CATEGORY = { type: 'SET_CATEGORY' }
 export const GET_VIDEOS = { type: 'GET_VIDEOS' }
 export const SET_VIDEOS = { type: 'SET_VIDEOS' }
 
-export const getMovie = id => ({ ...GET_MOVIE, id })
-export const setMovie = data => ({ ...SET_MOVIE, data })
-export const getShow = id => ({ ...GET_SHOW, id })
-export const setShow = data => ({ ...SET_SHOW, data })
+export const GET_CREDITS = { type: 'GET_CREDITS' }
+export const SET_CREDITS = { type: 'SET_CREDITS' }
+
+export const getMovie = (id, options = {}) => ({ ...GET_MOVIE, id, options })
+export const setMovie = (data, options = {}) => ({
+  ...SET_MOVIE,
+  data,
+  options
+})
+export const getShow = (id, options = {}) => ({ ...GET_SHOW, id, options })
+export const setShow = (data, options = {}) => ({ ...SET_SHOW, data, options })
 
 export const getVideos = (id, media) => ({ ...GET_VIDEOS, id, media })
 export const setVideos = (id, data) => ({ ...SET_VIDEOS, id, data })
+
+export const getCredits = (id, media) => ({ ...GET_CREDITS, id, media })
+export const setCredits = (id, data) => ({ ...SET_CREDITS, id, data })
 
 export const getCategory = category => {
   switch (category) {

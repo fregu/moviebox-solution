@@ -10,4 +10,9 @@
   height: 100%;
   width: 100%;
   border: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+.Video--loaded .Video-iframe {
+  opacity: 1;
 }

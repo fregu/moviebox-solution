@@ -15,8 +15,8 @@ type CellProps = {
 type GridProps = {
   className?: string,
   withGap?: boolean,
-  modifiers: Array<string>,
-  widths: {
+  modifiers?: Array<string>,
+  widths?: {
     ''?: string,
     s?: string,
     m?: string,
@@ -58,7 +58,7 @@ export default function Grid({
     >
       {[...((Array.isArray(children) && children) || [children])].map(
         (child, index) =>
-          child.type !== GridCell ? (
+          child.type.name !== 'GridCell' ? (
             <GridCell
               key={`cell-${index}`}
               widths={child.props.widths || widths}

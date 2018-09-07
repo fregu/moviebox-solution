@@ -23,8 +23,13 @@ module.exports = {
             loader: 'postcss-loader',
             options: {
               plugins: [
-                require('postcss-import')(),
-                require('postcss-preset-env')()
+                require('postcss-import')({ skipDuplicates: true }),
+                require('postcss-preset-env')({
+                  features: {
+                    'nesting-rules': true,
+                    'custom-media-queries': true
+                  }
+                })
               ],
               sourceMap: true,
               ident: 'postcss'

@@ -9,6 +9,9 @@
   padding-left: var(--layout-gutter);
   padding-right: var(--layout-gutter);
 }
+.layout-padding {
+  padding: var(--layout-gutter);
+}
 .layout-fullWidth {
   position: relative;
   left: 50%;

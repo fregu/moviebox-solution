@@ -3,6 +3,7 @@
 html,
 .text {
   font-family: arial;
+  line-height: 1.5em;
 }
 
 .text-center {
@@ -10,4 +11,9 @@ html,
 }
 .text-small {
   font-size: 0.85em;
+}
+.text-lead {
+  font-size: 1.25em;
+  font-family: georgia, serif;
+  line-height: 1.5em;
 }
