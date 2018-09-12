@@ -1,33 +1,27 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import classNames from 'classnames'
-import { connect } from 'react-redux'
 import Carousel from 'components/Carousel'
 import MovieCard from 'components/MovieCard'
-import { getCategory } from 'store/actions'
+import { Query } from 'react-apollo'
+import getCategoryQuery from 'queries/getCategory.gql'
 
 type Props = {
   slug: string,
   title?: string,
-  className?: string,
-  results?: Array<any>,
-  getCategory: Function
+  className?: string
 }
 
-class Category extends Component<Props> {
-  componentDidMount = () => {
-    const { getCategory, slug } = this.props
-    getCategory(slug)
-  }
-
-  render() {
-    const { slug, title, results = [], className } = this.props
-    return (
-      <div className={classNames('Category', className)}>
-        <h1>{title}</h1>
-        <Carousel>
-          {results.map(
-            ({ id, poster_path: posterPath, title, type = 'movie' }) => (
+const Category = ({ slug, title, className }: Props) => (
+  <div className={classNames('Category', className)}>
+    <h1>{title}</h1>
+    <Query query={getCategoryQuery} variables={{ category: slug }}>
+      {({ data, loading }) => {
+        console.log(data)
+        const { category = [] } = data
+        return (
+          <Carousel>
+            {category.map(({ id, posterPath, title, type = 'movie' }) => (
               <MovieCard
                 key={`${slug}/${type}/${id}`}
                 {...{
@@ -37,14 +31,12 @@ class Category extends Component<Props> {
                   type
                 }}
               />
-            )
-          )}
-        </Carousel>
-      </div>
-    )
-  }
-}
-export default connect(
-  ({ movies }, { slug }) => ({ results: movies?.[slug] }),
-  dispatch => ({ getCategory: category => dispatch(getCategory(category)) })
-)(Category)
+            ))}
+          </Carousel>
+        )
+      }}
+    </Query>
+  </div>
+)
+
+export default Category

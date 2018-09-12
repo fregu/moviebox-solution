@@ -16,6 +16,7 @@ export const VideoType = new GraphQLObjectType({
     embed: {
       type: GraphQLString,
       resolve: ({ key }) => key && `https://www.youtube.com/embed/${key}`
-    }
+    },
+    name: { type: GraphQLString }
   }
 })

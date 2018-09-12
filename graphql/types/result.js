@@ -13,6 +13,14 @@ export const ResultType = new GraphQLObjectType({
       type: ImageType,
       resolve: ({ poster_path: posterPath }) => posterPath
     },
-    title: { type: GraphQLString }
+    title: { type: GraphQLString },
+    media: {
+      type: GraphQLString,
+      resolve: ({
+        type,
+        media_type: mediaType,
+        first_air_date: firstAirDate
+      }) => type || mediaType || (firstAirDate ? 'tv' : 'movie')
+    }
   }
 })

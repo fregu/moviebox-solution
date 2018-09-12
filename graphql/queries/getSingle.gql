@@ -1,0 +1,38 @@
+query movieInfo($id: String, $type: String) {
+  movieInfo(id: $id, type: $type) {
+    id
+    title
+    type
+    backdropPath {
+      large
+      small
+    }
+    posterPath {
+      large
+      small
+    }
+    overview
+    production_companies
+    vote_average
+    genres
+    runtime
+    reviews {
+      id
+      content
+      author
+    }
+    credits {
+      id
+      name
+      profilePath
+      character
+    }
+    videos {
+      embed
+      posterImage
+      url
+      key
+      name
+    }
+  }
+}

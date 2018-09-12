@@ -7,7 +7,7 @@ export const CreditType = new GraphQLObjectType({
     id: { type: GraphQLString },
     character: { type: GraphQLString },
     name: { type: GraphQLString },
-    profile_path: {
+    profilePath: {
       type: GraphQLString,
       resolve: ({ profile_path: profilePath }) =>
         profilePath && `https://image.tmdb.org/t/p/w200${profilePath}`

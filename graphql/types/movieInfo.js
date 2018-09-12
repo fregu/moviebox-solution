@@ -15,10 +15,22 @@ export const MovieInfoType = new GraphQLObjectType({
   fields: {
     id: { type: GraphQLString },
     overview: { type: GraphQLString },
-    title: { type: GraphQLString },
-    poster_path: {
+    title: { type: GraphQLString, resolve: ({ title, name }) => title || name },
+    type: {
+      type: GraphQLString,
+      resolve: ({
+        type,
+        media_type: mediaType,
+        first_air_date: firstAirDate
+      }) => type || mediaType || (firstAirDate ? 'tv' : 'movie')
+    },
+    posterPath: {
       type: ImageType,
       resolve: ({ poster_path: posterPath }) => posterPath
+    },
+    backdropPath: {
+      type: ImageType,
+      resolve: ({ backdrop_path: backdropPath }) => backdropPath
     },
     genres: {
       type: GraphQLString,

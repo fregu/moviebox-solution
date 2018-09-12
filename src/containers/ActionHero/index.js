@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { connect } from 'react-redux'
 import Hero from 'components/Hero'
 
 type Props = {
@@ -9,10 +8,10 @@ type Props = {
   withVideo?: boolean,
   background?: { image?: string, color?: string, fit?: string, video?: string },
   className?: string,
-  children: any,
-  selectedItem: {
+  children?: any,
+  selectedItem?: {
     title?: string,
-    backdrop_path?: { large?: string },
+    backdropPath?: { large?: string },
     videos?: Array<any>
   }
 }
@@ -25,9 +24,9 @@ class ActionHero extends Component<Props> {
       withVideo,
       selectedItem: {
         title: selectedTitle,
-        backdrop_path: { large: backDrop } = {},
+        backdropPath: { large: backDrop } = {},
         videos = []
-      },
+      } = {},
       className,
       children
     } = this.props
@@ -56,6 +55,4 @@ class ActionHero extends Component<Props> {
   }
 }
 
-export default connect(({ activeMovie }) => ({ selectedItem: activeMovie }))(
-  ActionHero
-)
+export default ActionHero

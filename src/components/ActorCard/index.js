@@ -5,7 +5,7 @@ import Figure from 'components/Figure'
 import './index.css'
 
 type Props = {
-  profile_path: string,
+  profilePath: string,
   character: string,
   name: string,
   className?: string,
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function ActorCard({
-  profile_path: profilePath,
+  profilePath,
   character,
   name,
   className,

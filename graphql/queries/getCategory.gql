@@ -1,5 +1,5 @@
-query {
-  newMovies {
+query getCategory($category: String!) {
+  category(category: $category) {
     id
     title
     posterPath {
