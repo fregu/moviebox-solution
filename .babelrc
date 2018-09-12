@@ -6,7 +6,8 @@
       {
         "root": ["./src"],
         "alias": {
-          "root": "./"
+          "root": "./",
+          "queries": "./graphql/queries"
         }
       }
     ],

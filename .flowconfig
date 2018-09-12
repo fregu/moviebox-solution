@@ -15,4 +15,5 @@ esproposal.optional_chaining=enable
 
 module.name_mapper='^\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
 module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/__mocks__/fileMock.js'
+module.name_mapper.extension='gql' -> '<PROJECT_ROOT>/__mocks__/fileMock.js'
 [strict]

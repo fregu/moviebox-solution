@@ -3,7 +3,7 @@ const fetch =
   typeof window === 'undefined' ? require('node-fetch') : window.fetch
 
 export default function tmdb(apiKey) {
-  const BASE_URL = 'http://api.themoviedb.org/3'
+  const BASE_URL = 'https://api.themoviedb.org/3'
   const defaults = {
     mode: 'cors',
     headers: {

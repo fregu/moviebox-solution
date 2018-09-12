@@ -6,6 +6,8 @@ import ActionHero from 'containers/ActionHero'
 import View from 'components/View'
 import { connect } from 'react-redux'
 import CategoryBrowser from 'containers/CategoryBrowser'
+import NewMovies from 'containers/NewMovies'
+
 import Title from 'components/Title'
 import movieBackground from 'assets/images/movie_background.jpg'
 type Props = {
@@ -20,6 +22,7 @@ class HomeView extends Component<Props> {
     } = this.props
     return (
       <View fullWidth className="HomeView overflow-hidden" modifiers={['fill']}>
+        <NewMovies />
         <ActionHero background={{ image: movieBackground }} withVideo>
           <Title className="text-center">Welcome to Moviebox</Title>
         </ActionHero>

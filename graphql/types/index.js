@@ -1,0 +1,6 @@
+export * from './result'
+export * from './video'
+export * from './movieInfo'
+export * from './credits'
+export * from './reviews'
+export * from './image'
