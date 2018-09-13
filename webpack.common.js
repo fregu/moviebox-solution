@@ -1,8 +1,14 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
-module.exports = {
+module.exports = mode => ({
+  entry: {
+    main: './src/index.js'
+  },
+  mode,
   output: {
-    publicPath: '/assets/'
+    publicPath: '/assets/',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js'
   },
   module: {
     rules: [
@@ -10,14 +16,17 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          // Use Babel to transpile all JavaScript
           loader: 'babel-loader'
         }
       },
+      // working with node modules .mjs is a common type we also need to handle
+
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          mode === 'development'
+            ? 'style-loader'
+            : require('mini-css-extract-plugin').loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -38,6 +47,11 @@ module.exports = {
         ]
       },
       {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      },
+      {
         test: /\.(woff|woff2|(o|t)tf|eot)$/i,
         loader: 'file-loader',
         query: {
@@ -45,7 +59,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png|gif)$/i,
         exclude: /icons/,
         use: [
           {
@@ -58,10 +72,10 @@ module.exports = {
         ]
       },
       {
-        test: /\.svg$/i,
+        test: /\.svg$/,
         use: [
           {
-            loader: 'svg-inline-loader',
+            loader: require.resolve('svg-inline-loader'),
             options: {
               removeTags: true,
               removeSVGTagAttrs: true,
@@ -69,17 +83,7 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.(graphql|gql)$/,
-        exclude: /node_modules/,
-        loader: 'graphql-tag/loader'
       }
     ]
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html'
-    })
-  ]
-}
+  }
+})

@@ -3,18 +3,19 @@ import path from 'path'
 import fs from 'fs'
 import dotenv from 'dotenv'
 import historyFallback from 'koa2-history-api-fallback'
-import webpackMiddleware from 'koa-webpack-dev-middleware'
-import webpack from 'webpack'
-import webpackConfig from '../webpack.config.js'
-import https from 'https'
+import serve from 'koa-static'
+import mount from 'koa-mount'
 
+import https from 'https'
 import { ApolloServer } from 'apollo-server-koa'
 import schema from '../graphql/schema' // our schema file
-
+import ssrConfig from '../webpack.ssr.js'
 dotenv.config()
 
 const app = new Koa()
-const compiler = webpack(webpackConfig)
+
+// serve static files from dist with public path /assets
+// app.use(mount('/assets', serve(path.resolve(__dirname, '..', 'dist'))))
 
 const apollo = new ApolloServer({
   schema: schema,
@@ -23,7 +24,42 @@ const apollo = new ApolloServer({
 apollo.applyMiddleware({ app, path: '/graphql' })
 
 app.use(historyFallback())
-app.use(webpackMiddleware(compiler))
+
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack')
+  const MemoryFileSystem = require('memory-fs')
+  const requireFromString = require('require-from-string')
+
+  const memoryFs = new MemoryFileSystem()
+  const ServerCompiler = webpack(ssrConfig)
+
+  // Define file system to be in memory for compiler instead
+  ServerCompiler.outputFileSystem = memoryFs
+
+  // Start the compiler and require the file from memory
+  ServerCompiler.run((err, stats) => {
+    if (err) {
+      throw err
+    }
+    const contents = memoryFs.readFileSync(
+      path.resolve(ssrConfig.output.path, ssrConfig.output.filename),
+      'utf8'
+    )
+
+    const ssr = requireFromString(contents, ssrConfig.output.filename)
+
+    // Use SSR from memory-fs
+    app.use(ssr.default)
+  })
+} else {
+  const ssr = require(path.resolve(
+    ssrConfig.output.path,
+    ssrConfig.output.filename
+  ))
+
+  // Use SSR from ../dist/ssr.js
+  app.use(ssr.default)
+}
 
 if (process.env.NODE_ENV === 'development') {
   const options = {
