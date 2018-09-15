@@ -9,13 +9,14 @@
     "flow": "flow",
     "build": "webpack --config webpack.prod.js",
     "build:ssr": "webpack --config webpack.ssr.js",
-    "devserver": "webpack-dev-server --config webpack.dev.js --hot --history-api-fallback --open --port 8085",
+    "devserver": "webpack-dev-server --config webpack.dev.js --open --history-api-fallback",
     "server": "babel-node server",
     "watch:server": "nodemon --exec babel-node server --ignore dist --no-info",
     "watch:build": "yarn build --watch --ignore dist",
     "start": "npm-run-all --parallel watch:server watch:build devserver",
     "start:dev": "npm-run-all --parallel server devserver",
-    "start:server": "yarn build && yarn server"
+    "start:server": "yarn build && yarn server",
+    "validate": "npm ls"
   },
   "pre-commit": [
     "lint",

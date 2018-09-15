@@ -1,15 +1,8 @@
-const path = require('path')
-
 module.exports = mode => ({
   entry: {
     main: './src/index.js'
   },
   mode,
-  output: {
-    publicPath: '/assets/',
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js'
-  },
   module: {
     rules: [
       {
@@ -20,7 +13,11 @@ module.exports = mode => ({
         }
       },
       // working with node modules .mjs is a common type we also need to handle
-
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      },
       {
         test: /\.css$/,
         use: [

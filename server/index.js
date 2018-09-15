@@ -5,6 +5,9 @@ import dotenv from 'dotenv'
 import historyFallback from 'koa2-history-api-fallback'
 import serve from 'koa-static'
 import mount from 'koa-mount'
+import webpack from 'webpack'
+import MemoryFileSystem from 'memory-fs'
+import requireFromString from 'require-from-string'
 
 import https from 'https'
 import { ApolloServer } from 'apollo-server-koa'
@@ -15,7 +18,7 @@ dotenv.config()
 const app = new Koa()
 
 // serve static files from dist with public path /assets
-// app.use(mount('/assets', serve(path.resolve(__dirname, '..', 'dist'))))
+app.use(mount('/assets', serve(path.resolve(__dirname, '..', 'dist'))))
 
 const apollo = new ApolloServer({
   schema: schema,
@@ -26,10 +29,6 @@ apollo.applyMiddleware({ app, path: '/graphql' })
 app.use(historyFallback())
 
 if (process.env.NODE_ENV === 'development') {
-  const webpack = require('webpack')
-  const MemoryFileSystem = require('memory-fs')
-  const requireFromString = require('require-from-string')
-
   const memoryFs = new MemoryFileSystem()
   const ServerCompiler = webpack(ssrConfig)
 
@@ -39,8 +38,10 @@ if (process.env.NODE_ENV === 'development') {
   // Start the compiler and require the file from memory
   ServerCompiler.run((err, stats) => {
     if (err) {
+      console.log('compiler error', err)
       throw err
     }
+
     const contents = memoryFs.readFileSync(
       path.resolve(ssrConfig.output.path, ssrConfig.output.filename),
       'utf8'
