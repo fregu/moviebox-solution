@@ -5,7 +5,7 @@ import Card from 'components/Card'
 import Figure from 'components/Figure'
 import Link from 'components/Link'
 import { connect } from 'react-redux'
-import { getMovie, getShow } from 'store/actions'
+import { setActive } from 'store/actions'
 import './index.css'
 
 type Props = {
@@ -64,13 +64,8 @@ class MovieCard extends Component<Props> {
   }
 }
 export default connect(
-  () => {},
+  () => ({}),
   dispatch => ({
-    setActive: (id, type) =>
-      dispatch(
-        type === 'tv'
-          ? getShow(id, { videos: true })
-          : getMovie(id, { videos: true })
-      )
+    setActive: (id, media) => dispatch(setActive(id, media))
   })
 )(MovieCard)

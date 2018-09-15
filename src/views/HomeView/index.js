@@ -8,13 +8,19 @@ import { connect } from 'react-redux'
 import CategoryBrowser from 'containers/CategoryBrowser'
 import Title from 'components/Title'
 import movieBackground from 'assets/images/movie_background.jpg'
+import { clearActive } from 'store/actions'
+
 type Props = {
   search: {
     query?: string
   },
-  activeMovie?: any
+  activeMovie?: any,
+  clearActive: Function
 }
 class HomeView extends Component<Props> {
+  componentDidMount = () => {
+    this.props.clearActive()
+  }
   render() {
     const {
       search: { query },
@@ -25,7 +31,7 @@ class HomeView extends Component<Props> {
         <ActionHero
           background={{ image: movieBackground }}
           withVideo
-          selectedItem={activeMovie}
+          {...activeMovie}
         >
           <Title className="text-center">Welcome to Moviebox</Title>
         </ActionHero>
@@ -36,6 +42,7 @@ class HomeView extends Component<Props> {
   }
 }
 
-export default connect(({ search, activeMovie }) => ({ search, activeMovie }))(
-  HomeView
-)
+export default connect(
+  ({ search, activeMovie }) => ({ search, activeMovie }),
+  dispatch => ({ clearActive: () => dispatch(clearActive()) })
+)(HomeView)

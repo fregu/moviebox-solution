@@ -30,7 +30,7 @@ const SingleMovie = ({ id }: Props) => (
         'Laddar'
       ) : (
         <div className="SingleMovie">
-          <ActionHero selectedItem={{ title, backdropPath }} />
+          <ActionHero id={id} media={'tv'} />
           <Link
             className="SingleMovie-backLink"
             modifiers={['discreet']}

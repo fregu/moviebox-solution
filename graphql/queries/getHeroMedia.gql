@@ -1,0 +1,21 @@
+query getHeroMedia($id: String, $type: String) {
+  movieInfo(id: $id, type: $type) {
+    id
+    title
+    type
+    backdropPath {
+      large
+    }
+    production_companies
+    vote_average
+    genres
+    runtime
+    videos {
+      embed
+      posterImage
+      url
+      key
+      name
+    }
+  }
+}
