@@ -16,13 +16,13 @@ export const MovieInfoType = new GraphQLObjectType({
     id: { type: GraphQLString },
     overview: { type: GraphQLString },
     title: { type: GraphQLString, resolve: ({ title, name }) => title || name },
-    type: {
+    media: {
       type: GraphQLString,
       resolve: ({
-        type,
+        media,
         media_type: mediaType,
         first_air_date: firstAirDate
-      }) => type || mediaType || (firstAirDate ? 'tv' : 'movie')
+      }) => media || mediaType || (firstAirDate ? 'tv' : 'movie')
     },
     posterPath: {
       type: ImageType,
@@ -48,20 +48,20 @@ export const MovieInfoType = new GraphQLObjectType({
     videos: {
       type: new GraphQLList(VideoType),
       args: { id: { type: GraphQLString } },
-      resolve: ({ id }) =>
-        api.get(`/movie/${id}/videos`).then(data => data.results || [])
+      resolve: ({ id, media }) =>
+        api.get(`/${media}/${id}/videos`).then(data => data.results || [])
     },
     reviews: {
       type: new GraphQLList(ReviewType),
       args: { id: { type: GraphQLString } },
-      resolve: ({ id }, args) =>
-        api.get(`/movie/${id}/reviews`).then(data => data.results)
+      resolve: ({ id, media }, args) =>
+        api.get(`/${media}/${id}/reviews`).then(data => data.results)
     },
     credits: {
       type: new GraphQLList(CreditType),
       args: { id: { type: GraphQLString } },
-      resolve: ({ id }, args) =>
-        api.get(`/movie/${id}/credits`).then(data => data.cast || [])
+      resolve: ({ id, media }, args) =>
+        api.get(`/${media}/${id}/credits`).then(data => data.cast || [])
     }
   }
 })

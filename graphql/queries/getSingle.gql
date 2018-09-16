@@ -1,8 +1,8 @@
-query movieInfo($id: String, $type: String) {
-  movieInfo(id: $id, type: $type) {
+query movieInfo($id: String, $media: String) {
+  movieInfo(id: $id, media: $media) {
     id
     title
-    type
+    media
     backdropPath {
       large
       small

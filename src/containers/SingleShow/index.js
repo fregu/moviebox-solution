@@ -13,7 +13,7 @@ type Props = {
 }
 
 const SingleShow = ({ id }: Props) => (
-  <Query query={getSingleQuery} variables={{ type: 'movie', id }}>
+  <Query query={getSingleQuery} variables={{ media: 'tv', id }}>
     {({
       data: {
         movieInfo: {
@@ -30,7 +30,7 @@ const SingleShow = ({ id }: Props) => (
         'Laddar'
       ) : (
         <div className="SingleShow">
-          <ActionHero id={id} media={'movie'} />
+          <ActionHero id={id} media={'tv'} />
           <Link className="SingleShow-backLink" modifiers={['discreet']} to="/">
             Tillbaka
           </Link>

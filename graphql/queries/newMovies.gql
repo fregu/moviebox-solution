@@ -2,6 +2,7 @@ query {
   newMovies {
     id
     title
+    media
     posterPath {
       small
     }

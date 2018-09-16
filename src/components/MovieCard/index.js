@@ -12,7 +12,7 @@ type Props = {
   id: string,
   title: string,
   image: string,
-  type?: string,
+  media?: string,
   className?: string,
   modifiers?: Array<string>,
   setActive: Function
@@ -22,8 +22,8 @@ class MovieCard extends Component<Props> {
   link: HTMLElement
   hoverTimeout: TimeoutID
   onFocus = () => {
-    const { id, type, setActive } = this.props
-    setActive(id, type)
+    const { id, media, setActive } = this.props
+    setActive(id, media)
   }
   onMouseOver = (event: Event) => {
     this.hoverTimeout = setTimeout(() => this.link.focus(), 500)
@@ -36,7 +36,7 @@ class MovieCard extends Component<Props> {
       id,
       image,
       title,
-      type = 'movie',
+      media = 'movie',
       className,
       modifiers = []
     } = this.props
@@ -53,7 +53,7 @@ class MovieCard extends Component<Props> {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           innerRef={link => (this.link = link)}
-          to={`/${type}/${id}`}
+          to={`/${media}/${id}`}
           discreet
           onFocus={this.onFocus}
         >

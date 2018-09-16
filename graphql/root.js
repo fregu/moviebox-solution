@@ -41,9 +41,9 @@ const RootQuery = new GraphQLObjectType({
     },
     movieInfo: {
       type: MovieInfoType,
-      args: { id: { type: GraphQLString }, type: { type: GraphQLString } },
-      resolve: (root, { type, id }) =>
-        api.get(`/${type || 'movie'}/${id}`).then(data => ({ ...data, type }))
+      args: { id: { type: GraphQLString }, media: { type: GraphQLString } },
+      resolve: (root, { media, id }) =>
+        api.get(`/${media || 'movie'}/${id}`).then(data => ({ ...data, media }))
     },
     search: {
       type: new GraphQLList(ResultType),

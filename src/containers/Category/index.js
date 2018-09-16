@@ -17,18 +17,17 @@ const Category = ({ slug, title, className }: Props) => (
     <h1>{title}</h1>
     <Query query={getCategoryQuery} variables={{ category: slug }}>
       {({ data, loading }) => {
-        console.log(data)
         const { category = [] } = data
         return (
           <Carousel>
-            {category.map(({ id, posterPath, title, type = 'movie' }) => (
+            {category.map(({ id, posterPath, title, media = 'movie' }) => (
               <MovieCard
-                key={`${slug}/${type}/${id}`}
+                key={`${slug}/${media}/${id}`}
                 {...{
                   id,
                   image: posterPath?.small,
                   title,
-                  type
+                  media
                 }}
               />
             ))}

@@ -17,10 +17,10 @@ export const ResultType = new GraphQLObjectType({
     media: {
       type: GraphQLString,
       resolve: ({
-        type,
+        media,
         media_type: mediaType,
         first_air_date: firstAirDate
-      }) => type || mediaType || (firstAirDate ? 'tv' : 'movie')
+      }) => media || mediaType || (firstAirDate ? 'tv' : 'movie')
     }
   }
 })
