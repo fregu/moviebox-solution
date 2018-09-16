@@ -7,6 +7,9 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './dist'
   },
+  output: {
+    publicPath: '/'
+  },
   plugins: [
     new HtmlWebPackPlugin({
       template: './src/index.html'

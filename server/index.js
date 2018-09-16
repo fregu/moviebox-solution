@@ -8,6 +8,7 @@ import mount from 'koa-mount'
 import webpack from 'webpack'
 import MemoryFileSystem from 'memory-fs'
 import requireFromString from 'require-from-string'
+import compress from 'koa-compress'
 
 import https from 'https'
 import { ApolloServer } from 'apollo-server-koa'
@@ -27,6 +28,7 @@ const apollo = new ApolloServer({
 apollo.applyMiddleware({ app, path: '/graphql' })
 
 app.use(historyFallback())
+app.use(compress())
 
 if (process.env.NODE_ENV === 'development') {
   const memoryFs = new MemoryFileSystem()

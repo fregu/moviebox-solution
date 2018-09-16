@@ -12,12 +12,12 @@ module.exports = {
   },
   target: 'node',
   mode: 'production',
-
   // Use loaders from webpack-config, except css loader
   module: {
     rules: [
       ...config.module.rules.filter(rule => !'.css'.match(rule.test)),
-      { test: /\.css$/, use: ['null-loader'] }
+      { test: /\.css$/, use: ['null-loader'] },
+      { test: /\.html$/, use: ['raw-loader'] }
     ]
   }
 }

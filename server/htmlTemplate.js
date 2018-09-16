@@ -1,3 +1,5 @@
+import html from '../dist/template.html'
+
 export default function htmlTemplate({
   reactDom = '<div />',
   reduxState,
@@ -5,6 +7,12 @@ export default function htmlTemplate({
   helmetData,
   graphqlUrl
 }) {
+  const headString = `
+    ${helmetData.title.toString()}
+    ${helmetData.meta.toString()}
+    ${helmetData.link.toString()}
+    ${helmetData.style.toString()}
+  `
   const stateScript = `
     <script>
       window.__REDUX_STATE__ = ${JSON.stringify(reduxState)}
@@ -12,27 +20,14 @@ export default function htmlTemplate({
       window.graphqlUrl = '${graphqlUrl}'
     </script>
   `
-  return `
-    <!DOCTYPE html>
-    <html ${helmetData.htmlAttributes.toString()}>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/assets/style.css" />
-        ${helmetData.title.toString()}
-        ${helmetData.meta.toString()}
-        ${helmetData.link.toString()}
-        ${helmetData.style.toString()}
-    </head>
 
-    <body  class="theme-black" ${helmetData.bodyAttributes.toString()}>
-      ${helmetData.noscript.toString()}
-        <div id="root">${reactDom}</div>
-
-        ${helmetData.script.toString()}
-        ${stateScript /* must be inserted before main.js */}
-        <script src="/assets/main.js"></script>
-    </body>
-    </html>
-  `
+  return html
+    .replace(
+      '<div id="root"></div>',
+      `${helmetData.noscript.toString()}<div id="root">${reactDom}</div>${stateScript}`
+    )
+    .replace('</head>', `${headString}</head>`)
+    .replace('<body', `<body ${helmetData.bodyAttributes.toString()}`)
+    .replace('<html', `<html ${helmetData.htmlAttributes.toString()}`)
+    .replace('</body>', `${helmetData.script.toString()}</body>`)
 }
