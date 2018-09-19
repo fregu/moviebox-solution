@@ -13,7 +13,7 @@ type Props = {
 }
 
 const SingleMovie = ({ id }: Props) => (
-  <Query query={getSingleQuery} variables={{ type: 'movie', id }}>
+  <Query query={getSingleQuery} variables={{ media: 'movie', id }}>
     {({
       data: {
         movieInfo: {

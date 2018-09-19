@@ -57,7 +57,7 @@ class MovieCard extends Component<Props> {
           discreet
           onFocus={this.onFocus}
         >
-          <Figure src={image}>{title}</Figure>
+          <Figure src={image} text={title} />
         </Link>
       </Card>
     )

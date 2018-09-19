@@ -16,8 +16,12 @@ const Category = ({ slug, title, className }: Props) => (
   <div className={classNames('Category', className)}>
     <h1>{title}</h1>
     <Query query={getCategoryQuery} variables={{ category: slug }}>
-      {({ data, loading }) => {
+      {({ error, data, loading }) => {
         const { category = [] } = data
+        if (error) {
+          console.error(error)
+          return null
+        }
         return (
           <Carousel>
             {category.map(({ id, posterPath, title, media = 'movie' }) => (

@@ -26,11 +26,13 @@ class ActionHero extends Component<Props> {
       className,
       children
     } = this.props
+
     const fallbackHero = (
       <Hero title={title} className={'ActionHero-hero'} background={background}>
         {children}
       </Hero>
     )
+
     return (
       <div className={classNames('ActionHero', className)}>
         {id && media ? (

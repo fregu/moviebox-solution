@@ -26,6 +26,7 @@ class HomeView extends Component<Props> {
       search: { query },
       activeMovie
     } = this.props
+
     return (
       <View fullWidth className="HomeView overflow-hidden" modifiers={['fill']}>
         <ActionHero
@@ -35,7 +36,9 @@ class HomeView extends Component<Props> {
         >
           <Title className="text-center">Welcome to Moviebox</Title>
         </ActionHero>
-        <SearchBar />
+        {typeof navigator === 'undefined' || navigator.onLine ? (
+          <SearchBar />
+        ) : null}
         {query ? <SearchResults /> : <CategoryBrowser />}
       </View>
     )

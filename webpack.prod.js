@@ -9,12 +9,14 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 // gzip compression
 const ZopfliPlugin = require('zopfli-webpack-plugin')
 // br compression
 const BrotliPlugin = require('brotli-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = merge(common, {
   devtool: 'source-map',
@@ -90,7 +92,28 @@ module.exports = merge(common, {
     // Also generate .br files, with Brotli compression-- often significantly smaller than the gzip equivalent, but not yet universally supported
     new BrotliPlugin(),
 
-    new FaviconsWebpackPlugin('./src/assets/images/large-icon.png')
+    new FaviconsWebpackPlugin('./src/assets/images/large-icon.png'),
+    new WebpackPwaManifest({
+      name: 'Moviebox app',
+      short_name: 'Moviebox',
+      description: 'My awesome Progressive Web App!',
+      theme_color: '#ffffff',
+      display: 'standalone',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials', // can be null, use-credentials or anonymous
+      icons: [
+        {
+          src: path.resolve(__dirname, 'src/assets/images/large-icon.png'),
+          sizes: [96, 114, 120, 128, 144, 152, 192, 256, 384, 512] // multiple sizes
+        },
+        {
+          src: path.resolve(__dirname, 'src/assets/images/large-icon.png'),
+          size: '1024x1024' // you can also use the specifications pattern
+        }
+      ],
+      ios: true
+    }),
+    new CopyWebpackPlugin([{ from: 'src/sw.js', to: 'sw.js' }])
   ],
   optimization: {
     splitChunks: {

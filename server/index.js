@@ -20,7 +20,9 @@ const app = new Koa()
 
 // serve static files from dist with public path /assets
 app.use(mount('/assets', serve(path.resolve(__dirname, '..', 'dist'))))
-
+app.use(
+  mount('/sw', serve(path.resolve(__dirname, '..', 'dist'), { index: 'sw.js' }))
+)
 const apollo = new ApolloServer({
   schema: schema,
   context: ({ ctx }) => ctx

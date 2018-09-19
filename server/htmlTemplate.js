@@ -18,6 +18,24 @@ export default function htmlTemplate({
       window.__REDUX_STATE__ = ${JSON.stringify(reduxState)}
       window.__APOLLO_STATE__ = ${JSON.stringify(apolloState)}
       window.graphqlUrl = '${graphqlUrl}'
+
+      if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw').then(
+            registration => {
+              // Registration was successful
+              console.log(
+                'ServiceWorker registration successful with scope: ',
+                registration.scope
+              )
+            },
+            err => {
+              // registration failed :(
+              console.log('ServiceWorker registration failed: ', err)
+            }
+          )
+        })
+      }
     </script>
   `
 
