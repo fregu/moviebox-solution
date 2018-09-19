@@ -48,7 +48,7 @@ export const MovieInfoType = new GraphQLObjectType({
     videos: {
       type: new GraphQLList(VideoType),
       args: { id: { type: GraphQLString } },
-      resolve: ({ id, media }) =>
+      resolve: ({ id, media = 'movie' }) =>
         api.get(`/${media}/${id}/videos`).then(data => data.results || [])
     },
     reviews: {
@@ -60,7 +60,7 @@ export const MovieInfoType = new GraphQLObjectType({
     credits: {
       type: new GraphQLList(CreditType),
       args: { id: { type: GraphQLString } },
-      resolve: ({ id, media }, args) =>
+      resolve: ({ id, media = 'movie' }, args) =>
         api.get(`/${media}/${id}/credits`).then(data => data.cast || [])
     }
   }

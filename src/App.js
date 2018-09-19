@@ -8,7 +8,7 @@ import 'base/index.css'
 const App = () => (
   <Switch>
     <Route exact path="/" component={HomeView} />
-    <Route exact path="/:type/:id" component={SingleView} />
+    <Route exact path="/:media/:id" component={SingleView} />
     <Redirect to="/" />
   </Switch>
 )

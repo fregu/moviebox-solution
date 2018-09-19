@@ -30,7 +30,7 @@ const SingleMovie = ({ id }: Props) => (
         'Laddar'
       ) : (
         <div className="SingleMovie">
-          <ActionHero id={id} media={'tv'} />
+          <ActionHero id={id} media="movie" />
           <Link
             className="SingleMovie-backLink"
             modifiers={['discreet']}
