@@ -30,8 +30,19 @@ export default class Form extends Component<Props, State> {
       valueString: JSON.stringify(values)
     })
 
+    // Stay in control of events
+    this.el.addEventListener('change', this.onChange)
+    this.el.addEventListener('input', this.onChange)
+    this.el.addEventListener('submit', this.onSubmit)
+
     // check initial validation
     this.validateFields()
+  }
+  componentWillUnmount = () => {
+    // Remove events
+    this.el.removeEventListener('change', this.onChange)
+    this.el.removeEventListener('input', this.onChange)
+    this.el.removeEventListener('submit', this.onSubmit)
   }
 
   onSubmit = (event: Event) => {
@@ -89,8 +100,6 @@ export default class Form extends Component<Props, State> {
     return (
       <form
         className={classNames('Form', className)}
-        onSubmit={this.onSubmit}
-        onChange={this.onChange}
         method={method}
         ref={el => el && (this.el = el)}
       >
