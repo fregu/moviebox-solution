@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "^8.11.0",
+    "yarn": "^1.1.0"
+  },
   "scripts": {
     "test": "jest",
     "lint": "eslint src",
@@ -17,7 +21,8 @@
     "start": "yarn build && npm-run-all --parallel watch:server watch:build devserver",
     "start:dev": "npm-run-all --parallel server devserver",
     "start:server": "yarn build && yarn server",
-    "validate": "npm ls"
+    "validate": "npm ls",
+    "postinstall": "yarn build && yarn build:ssr"
   },
   "pre-commit": [
     "lint",
