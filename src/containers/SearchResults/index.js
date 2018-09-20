@@ -11,7 +11,7 @@ type ResultProps = {
   posterPath: { small: string, large: string },
   title: string,
   overview: string,
-  type: string
+  media: string
 }
 
 type Props = {
@@ -34,14 +34,14 @@ class SearchResults extends Component<Props> {
             ) : search.length ? (
               <Carousel>
                 {search.map(
-                  ({ type = 'movie', id, title, posterPath }: ResultProps) => (
+                  ({ media = 'movie', id, title, posterPath }: ResultProps) => (
                     <MovieCard
-                      key={`${type}/${id}`}
+                      key={`${media}/${id}`}
                       {...{
                         id,
                         image: posterPath?.small,
                         title,
-                        type
+                        media
                       }}
                     />
                   )
