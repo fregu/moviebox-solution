@@ -32,7 +32,7 @@ module.exports = merge(common, {
     }),
 
     // Delete dist folder before every build
-    new CleanWebpackPlugin('dist'),
+    new CleanWebpackPlugin('dist', { dry: true }),
 
     // Export html-file to dist/template.html
     new HtmlWebPackPlugin({
