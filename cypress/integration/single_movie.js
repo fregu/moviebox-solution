@@ -18,6 +18,6 @@ describe('Clicking a movie or show should open a single page', () => {
   })
 
   it('Start page should load again', () => {
-    cy.url().should('equal', 'http://localhost:5500/')
+    cy.url().should('match', /http:\/\/localhost:5500\/?$/)
   })
 })

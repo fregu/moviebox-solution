@@ -2,7 +2,6 @@
 import React from 'react'
 import SingleMovie from 'containers/SingleMovie'
 import SingleShow from 'containers/SingleShow'
-
 type Props = {
   match: { params: { media: string, id: string } }
 }
@@ -11,9 +10,21 @@ export default function SingleView({
     params: { id, media }
   }
 }: Props) {
+  const isOnline =
+    typeof navigator === 'undefined' ||
+    !('onLine' in navigator) ||
+    navigator.onLine
   return (
     <div className="SingleView">
-      {media === 'movie' ? <SingleMovie id={id} /> : <SingleShow id={id} />}
+      {isOnline ? (
+        media === 'movie' ? (
+          <SingleMovie id={id} />
+        ) : (
+          <SingleShow id={id} />
+        )
+      ) : (
+        'Offline'
+      )}
     </div>
   )
 }

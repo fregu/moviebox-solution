@@ -14,6 +14,7 @@ type Props = {
 
 class SearchBar extends Component<Props> {
   onChange = (event: Event, formData) => {
+    console.log(formData.query)
     this.props.searchMovies(formData.query)
   }
   render() {
@@ -21,7 +22,7 @@ class SearchBar extends Component<Props> {
       search: { query = '' }
     } = this.props
     return (
-      <Form className="SearchBar" onInput={this.onChange}>
+      <Form className="SearchBar" onChange={this.onChange}>
         <FormInput
           modifiers={['fill', 'large']}
           label="Search for movie or TV-show"
