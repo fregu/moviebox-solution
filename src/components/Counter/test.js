@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup } from 'react-testing-library'
+import { render, cleanup, fireEvent } from 'react-testing-library'
 import 'jest-dom/extend-expect'
 import Counter from 'components/Counter'
 
@@ -14,16 +14,28 @@ test('The component displays the number provided', () => {
   expect(getByTestId('counter').textContent).toBe('14')
 })
 
-// test('When the component is clicked increasy by value', () => {
-//   const { getByTestId } = render(<Counter value="14" step="2" />)
-//   const container = getByTestId('counter')
-//   fireEvent(container)
-//   expect(getByTestId('counter').textContent).toBe('16')
-// })
-//
-// test('When the component is clicked increasy by 1', () => {
-//   const { getByTestId } = render(<Counter value="14" />)
-//   const container = getByTestId('counter')
-//   fireEvent(container)
-//   expect(getByTestId('counter').textContent).toBe('15')
-// })
+test('When the component is clicked increasy by value', () => {
+  const { getByTestId } = render(<Counter value="14" step="2" />)
+  const container = getByTestId('counter')
+  fireEvent(
+    container,
+    new MouseEvent('click', {
+      bubbles: true, // click events must bubble for React to see it
+      cancelable: true
+    })
+  )
+  expect(getByTestId('counter').textContent).toBe('16')
+})
+
+test('When the component is clicked increasy by 1', () => {
+  const { getByTestId } = render(<Counter value="14" />)
+  const container = getByTestId('counter')
+  fireEvent(
+    container,
+    new MouseEvent('click', {
+      bubbles: true, // click events must bubble for React to see it
+      cancelable: true
+    })
+  )
+  expect(getByTestId('counter').textContent).toBe('15')
+})
