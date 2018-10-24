@@ -1,6 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import * as reducers from './reducers'
-import middlewares from './middlewares'
+import * as middlewares from './middlewares'
 
 // If redux devtools is installed, use its composeEnhancers
 const composeEnhancers =
@@ -12,6 +12,6 @@ export default (initialState = { counter: 0 }) => {
   return createStore(
     combineReducers(reducers),
     initialState,
-    composeEnhancers(applyMiddleware(...middlewares))
+    composeEnhancers(applyMiddleware(...Object.values(middlewares)))
   )
 }
