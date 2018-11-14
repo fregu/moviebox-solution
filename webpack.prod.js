@@ -11,7 +11,8 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
 // gzip compression
-const ZopfliPlugin = require('zopfli-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const zopfli = require('@gfx/zopfli')
 // br compression
 const BrotliPlugin = require('brotli-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
@@ -84,9 +85,16 @@ module.exports = merge(common, {
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
     }),
-    // Compress assets into .gz files, for browsers with support
-    new ZopfliPlugin(),
 
+    // Compress assets into .gz files, for browsers with support
+    new CompressionPlugin({
+      compressionOptions: {
+        numiterations: 15
+      },
+      algorithm(input, compressionOptions, callback) {
+        return zopfli.gzip(input, compressionOptions, callback)
+      }
+    }),
     // Also generate .br files, with Brotli compression-- often significantly smaller than the gzip equivalent, but not yet universally supported
     new BrotliPlugin(),
 
