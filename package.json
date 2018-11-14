@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "engines": {
-    "node": "^8.12.0",
+    "node": "^10.12.0",
     "yarn": "^1.1.0"
   },
   "scripts": {
@@ -33,13 +33,14 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/node": "^7.0.0",
-    "@babel/preset-flow": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@gfx/zopfli": "^1.0.10",
     "@storybook/addon-notes": "^3.4.10",
     "@storybook/addon-viewport": "^3.4.10",
     "@storybook/react": "^3.4.10",
@@ -55,6 +56,7 @@
     "brotli-webpack-plugin": "^1.0.0",
     "classnames": "^2.2.6",
     "clean-webpack-plugin": "^0.1.19",
+    "compression-webpack-plugin": "^2.0.0",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.0",
@@ -105,8 +107,7 @@
     "webpack-cli": "^3.1.0",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.1.4",
-    "webpack-pwa-manifest": "^3.7.1",
-    "zopfli-webpack-plugin": "^0.1.0"
+    "webpack-pwa-manifest": "^3.7.1"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
